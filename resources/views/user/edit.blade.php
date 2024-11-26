@@ -108,7 +108,7 @@
             </label>
             <label class="block text-sm mt-2 mb-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>Cover</b></span>
-                <img src="{{ asset('/images/karyawan' . $user->karyawan->cover) }}" class="w-20 h-auto mb-2">
+                <img src="{{ asset('images/karyawan/' . $user->karyawan->cover) }}" class="w-8 h-auto mb-2">
                 <input name="cover" type="file" value="{{ $user->karyawan->cover }}"
                     class=" @error('cover') border-red-500 @enderror block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     accept="image/*">

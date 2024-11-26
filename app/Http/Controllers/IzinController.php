@@ -12,7 +12,7 @@ class IzinController extends Controller
 {
     public function index()
     {
-        $izin = Izin::with(['karyawan'])->where('id_karyawan', Auth::user()->id)->get();
+        $izin = Izin::with(['karyawan'])->where('id_karyawan', Auth::user()->id)->paginate(5);
 
         // Hitung total hari izin untuk setiap record izin
         foreach ($izin as $item) {
@@ -26,7 +26,7 @@ class IzinController extends Controller
 
     public function menu()
     {
-        $izin = Izin::latest()->get();
+        $izin = Izin::latest()->paginate(5);
         $izinNotifications = Izin::where('status', 'Menunggu')->get();
 
         // Hitung total hari izin untuk setiap record izin
@@ -73,7 +73,7 @@ class IzinController extends Controller
             'alasan' => $validated['alasan'], // Menyimpan alasan
             'status' => 'Menunggu', // Status "Menunggu Konfirmasi"
         ]);
-        Alert::success('Succes', 'Izin Berhasil Di Ajukan')->autoClose(1500);
+        Alert::success('Succes', 'Izin Berhasil Di Ajukan !')->autoClose(1500);
         return redirect()->route('izin.index');
     }
 
@@ -83,7 +83,7 @@ class IzinController extends Controller
         $izin->status = 'Diterima';
         $izin->save();
 
-        Alert::success('Succes', 'Izin berhasil diterima')->autoClose(1500);
+        Alert::success('Succes', 'Izin berhasil diterima !')->autoClose(1500);
         return redirect()->back();
     }
 
@@ -93,7 +93,7 @@ class IzinController extends Controller
         $izin->status = 'Ditolak';
         $izin->save();
 
-        Alert::success('Succes', 'Izin ditolak')->autoClose(1500);
+        Alert::success('Succes', 'Izin ditolak !')->autoClose(1500);
         return redirect()->back();
     }
 }

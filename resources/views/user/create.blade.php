@@ -6,7 +6,7 @@
         </h4>
     </div>
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <form action="{{ route('user.store') }}" method="POST">
+        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <label class="block text-sm mt-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>Nama User</b></span>
