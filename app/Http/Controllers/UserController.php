@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,9 +11,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user = User::role('user')->with('karyawan')->get();
@@ -20,18 +18,12 @@ class UserController extends Controller
         return view('user.index', compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('user.create');
+        $jabatan = Jabatan::all();
+        return view('user.create', compact('jabatan'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -58,6 +50,7 @@ class UserController extends Controller
         $karyawan = Karyawan::create([
             'id_user' => $user->id,
             'nik' => $request->nik,
+            'id_jabatan' => $request->id_jabatan,
             'no_telp' => $request->no_telp,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -78,26 +71,12 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $user = User::findOrFail( $id);
         return view('user.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -123,6 +102,7 @@ class UserController extends Controller
         $karyawan = Karyawan::findOrFail([
             'id_user' => $user->id,
             'nik' => $request->nik,
+            'id_jabatan' => $request->id_jabatan,
             'no_telp' => $request->no_telp,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -143,9 +123,6 @@ class UserController extends Controller
         return view('user.index', compact('user'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = User::findOrFail(id: $id);

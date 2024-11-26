@@ -32,17 +32,6 @@
                 @enderror
             </label>
             <label class="block text-sm mt-2">
-                <span class="text-gray-700 dark:text-gray-400"><b>Password</b></span>
-                <input name="password" type="password"
-                    class=" @error('password') border-red-500 @enderror block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    value="{{ $user->password }}">
-                @error('password')
-                    <span class="text-red-500 text-sm mt-1">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </label>
-            <label class="block text-sm mt-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>NIK</b></span>
                 <input name="nik" type="number"
                     class=" @error('nik') border-red-500 @enderror block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
@@ -77,11 +66,11 @@
             </label>
             <label class="block text-sm mt-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>Jenis Kelamin</b></span>
-                <select name="jenis_kelamin" value="{{ $user->karyawan->jenis_kelamin }}"
+                <select name="jenis_kelamin"
                     class="@error('jenis_kelamin') border-red-500 @enderror block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                     <option class="text-gray-600">-- Pilih Jenis Kelamin --</option>
-                    <option>Laki - laki</option>
-                    <option>Perempuan</option>
+                    <option value="Laki - laki" {{ old('jenis_kelamin', $user->karyawan->jenis_kelamin) == 'Laki - laki' ? 'selected' : '' }}>Laki - laki</option>
+                    <option value="Perempuan" {{ old('jenis_kelamin', $user->karyawan->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                 </select>
                 @error('jenis_kelamin')
                     <span class="text-red-500 text-sm mt-1">
@@ -91,9 +80,9 @@
             </label>
             <label class="block text-sm mt-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>Alamat</b></span>
-                <textarea name="alamat" value="{{ $user->karyawan->alamat }}"
+                <textarea name="alamat"
                     class="@error('alamat') border-red-500 @enderror block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                    rows="3" placeholder="Masukan alamat user"></textarea>
+                    rows="3" placeholder="Masukan alamat user">{{ old('alamat', $user->karyawan->alamat) }}</textarea>
                 @error('alamat')
                     <span class="text-red-500 text-sm mt-1">
                         <strong>{{ $message }}</strong>
@@ -105,10 +94,11 @@
                 <select name="agama" value="{{ $user->karyawan->agama }}"
                     class="@error('agama') border-red-500 @enderror block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                     <option class="text-gray-600">-- Pilih Agama --</option>
-                    <option>Islam</option>
-                    <option>Kristen</option>
-                    <option>Buddha</option>
-                    <option>Katolik</option>
+                    <option value="Islam" {{ old('agama', $user->karyawan->agama) == 'Islam' ? 'selected' : '' }}>Islam</option>
+                    <option value="Kristen" {{ old('agama', $user->karyawan->agama) == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                    <option value="Budha" {{ old('agama', $user->karyawan->agama) == 'Budha' ? 'selected' : '' }}>Budha</option>
+                    <option value="Katolik" {{ old('agama', $user->karyawan->agama) == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                    <option value="Konghucu" {{ old('agama', $user->karyawan->agama) == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
                 </select>
                 @error('agama')
                     <span class="text-red-500 text-sm mt-1">
@@ -118,6 +108,7 @@
             </label>
             <label class="block text-sm mt-2 mb-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>Cover</b></span>
+                <img src="{{ asset('/images/karyawan' . $user->karyawan->cover) }}" class="w-20 h-auto mb-2">
                 <input name="cover" type="file" value="{{ $user->karyawan->cover }}"
                     class=" @error('cover') border-red-500 @enderror block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     accept="image/*">

@@ -9,4 +9,8 @@ class Jabatan extends Model
 {
     use HasFactory;
     protected $fillable = ['nama_jabatan'];
+    public function karyawan()
+    {
+        return $this->hasOne(Karyawan::class, 'id_jabatan');
+    }
 }

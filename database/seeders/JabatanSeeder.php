@@ -7,22 +7,20 @@ use Illuminate\Support\Facades\DB;
 
 class JabatanSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $jabatan = [
-            ['nama_jabatan' => 'Manager'],
-            ['nama_jabatan' => 'Karyawan'],
-            ['nama_jabatan' => 'Direktur'],
-            ['nama_jabatan' => 'CEO'],
-            ['nama_jabatan' => 'HRD'],
-            ['nama_jabatan' => 'CFO'],
-            ['nama_jabatan' => 'CIO'],
-            ['nama_jabatan' => 'CMO'],
-            ['nama_jabatan' => 'TI'],
-            ['nama_jabatan' => 'OB'],
+            ['id' => 1, 'nama_jabatan' => 'Bos'],
+            ['id' => 2, 'nama_jabatan' => 'Manager'],
+            ['id' => 3, 'nama_jabatan' => 'Karyawan'],
+            ['id' => 4, 'nama_jabatan' => 'Direktur'],
+            ['id' => 5, 'nama_jabatan' => 'CEO'],
+            ['id' => 6, 'nama_jabatan' => 'HRD'],
+            ['id' => 7, 'nama_jabatan' => 'CFO'],
+            ['id' => 8, 'nama_jabatan' => 'CIO'],
+            ['id' => 9, 'nama_jabatan' => 'CMO'],
+            ['id' => 10, 'nama_jabatan' => 'TI'],
+            ['id' => 11, 'nama_jabatan' => 'OB'],
         ];
         // masukkan data ke database
         DB::table('jabatans')->insert($jabatan);

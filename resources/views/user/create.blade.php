@@ -114,6 +114,21 @@
                     </span>
                 @enderror
             </label>
+            <label class="block text-sm mt-2" for="id_jabatan">
+                <span class="text-gray-700 dark:text-gray-400"><b>Jabatan</b></span>
+                <select name="id_jabatan" value="{{ old('nama_jabatan') }}"
+                    class="@error('nama_jabatan') border-red-500 @enderror block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                    <option class="text-gray-600">-- Pilih Jabatan --</option>
+                    @foreach ($jabatan as $data)
+                        <option value="{{ $data->id }}">{{ $data->nama_jabatan }}</option>
+                    @endforeach
+                </select>
+                @error('nama_jabatan')
+                    <span class="text-red-500 text-sm mt-1">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </label>
             <label class="block text-sm mt-2 mb-2">
                 <span class="text-gray-700 dark:text-gray-400"><b>Cover</b></span>
                 <input name="cover" type="file" value="{{ old('cover') }}"

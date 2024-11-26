@@ -8,8 +8,8 @@
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <form action="{{ route('izin.store') }}" method="POST">
             @csrf
-            <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Tanggal Mulai</span>
+            <label class="block text-sm mt-2">
+                <span class="text-gray-700 dark:text-gray-400"><b>Tanggal Mulai</b></span>
                 <input name="tgl_mulai" type="date" value="{{ old('tgl_mulai') }}"
                     class=" @error('tgl_mulai') border-red-500 @enderror block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
                 @error('tgl_mulai')
@@ -18,8 +18,8 @@
                     </span>
                 @enderror
             </label>
-            <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Tanggal Selesai</span>
+            <label class="block text-sm mt-2">
+                <span class="text-gray-700 dark:text-gray-400"><b>Tanggal Selesai</b></span>
                 <input name="tgl_selesai" type="date" value="{{ old('tgl_selesai') }}"
                     class=" @error('tgl_selesai') border-red-500 @enderror block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
                 @error('tgl_selesai')

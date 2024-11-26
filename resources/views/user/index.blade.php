@@ -18,33 +18,40 @@
                         <th class="px-4 py-3">No</th>
                         <th class="px-4 py-3">Nama User</th>
                         <th class="px-4 py-3">NIK</th>
-                        <th class="px-4 py-3">No Telepon</th>
+                        <th class="px-4 py-3">Jabatan</th>
                         <th class="px-4 py-3">Tanggal Lahir</th>
                         <th class="px-4 py-3">Jenis Kelamin</th>
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @php $no = 1; @endphp
-                    @foreach ($user as $data)
-                        <tr class="text-gray-700 dark:text-gray-400 ">
-                            <td class="px-4 py-3 text-sm">{{ $no++ }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $data->name }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $data->karyawan->nik }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $data->karyawan->no_telp }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $data->karyawan->tgl_lahir }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $data->karyawan->jenis_kelamin }}</td>
-                            <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <a href="{{ route('user.edit', $data->id) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                        aria-label="Edit">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                            </path>
-                                        </svg>
-                                    </a>
+                    @if ($user->isEmpty())
+                        <tr>
+                            <td colspan="7" class="px-4 py-3 text-sm text-center text-gray-500 dark:text-gray-400">
+                                Data tidak tersedia !
+                            </td>
+                        </tr>
+                    @else
+                        @php $no = 1; @endphp
+                        @foreach ($user as $data)
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3 text-sm">{{ $no++ }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $data->name }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $data->karyawan->nik }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $data->karyawan->jabatan->nama_jabatan }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $data->karyawan->tgl_lahir }}</td>
+                                <td class="px-4 py-3 text-sm">{{ $data->karyawan->jenis_kelamin }}</td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center text-sm">
+                                        <a href="{{ route('user.edit', $data->id) }}"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                                </path>
+                                            </svg>
+                                        </a>
                                         <a href="{{ route('user.destroy', $data->id) }}" type="submit"
                                             data-confirm-delete="true"
                                             class="flex items-center justify-between py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
@@ -55,10 +62,11 @@
                                                     clip-rule="evenodd"></path>
                                             </svg>
                                         </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

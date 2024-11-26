@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('izins', function (Blueprint $table) {
@@ -16,15 +13,12 @@ return new class extends Migration
             $table->unsignedBigInteger('id_karyawan');
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
-            $table->string('alasan');
+            $table->longText('alasan');
             $table->enum('status', ['Menunggu', 'Diterima', 'Ditolak'])->default('Menunggu');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('izins');

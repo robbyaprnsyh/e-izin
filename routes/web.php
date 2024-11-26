@@ -10,20 +10,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth/login');
-});
+})->middleware('guest');
 
 Auth::routes();
 
+// Route Karyawan
+Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+Route::get('karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+Route::post('karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+Route::get('karyawan/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
+Route::get('karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+Route::put('karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+Route::delete('karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    // Route Profile
-    // Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-    // Route::get('profile/create', [ProfileController::class, 'create'])->name('profile.create');
-    // Route::post('profile', [ProfileController::class, 'store'])->name('profile.store');
-    // Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
-    // Route::get('profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::put('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Route Jabatan
     Route::get('jabatan', [JabatanController::class, 'index'])->name('jabatan.index');
@@ -43,15 +44,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-    // Route Karyawan
-    Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-    Route::get('karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
-    Route::post('karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
-    Route::get('karyawan/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
-    Route::get('karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-    Route::put('karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
-    Route::delete('karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
-
+    // Route Izin
     Route::get('izin/menu', [IzinController::class, 'menu'])->name('izin.menu');
     Route::put('/izin/approve/{id}', [IzinController::class, 'approve'])->name('izin.approve');
     Route::put('/izin/reject/{id}', [IzinController::class, 'reject'])->name('izin.reject');

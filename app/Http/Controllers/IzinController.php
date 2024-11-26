@@ -10,19 +10,20 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class IzinController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $izin = Izin::with(['karyawan'])->where('id_karyawan', Auth::user()->id)->get();
+
+        // Hitung total hari izin untuk setiap record izin
+        foreach ($izin as $item) {
+            $tanggalMulai = \Carbon\Carbon::parse($item->tgl_mulai);
+            $tanggalAkhir = \Carbon\Carbon::parse($item->tgl_selesai);
+            $item->total_hari_izin = $tanggalMulai->diffInDays($tanggalAkhir) + 1; // +1 agar tanggal mulai juga terhitung
+        }
         confirmDelete('Hapus izin!', 'Apakah anda yakin?');
         return view('izin.index', compact('izin'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function menu()
     {
         $izin = Izin::latest()->get();
@@ -42,20 +43,27 @@ class IzinController extends Controller
         return view('izin.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // Validasi input
         $validated = $request->validate([
             'tgl_mulai' => ['required', 'date', 'after_or_equal:today'],
             'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai',
-            'alasan' => 'required|string|max:255',
+            'alasan' => 'required|string',
         ], [
-            'tgl_mulai.after_or_equal' => 'Tanggal yang di masukan tidak valid', // Pesan khusus
+            'tgl_mulai.after_or_equal' => 'Tanggal yang di masukan tidak valid !', // Pesan khusus
             'tgl_selesai.after_or_equal' => 'Tanggal selesai cuti harus setelah atau sama dengan tanggal mulai cuti.',
         ]);
+
+        // Hitung durasi izin
+        $tanggalMulai = \Carbon\Carbon::parse($validated['tgl_mulai']);
+        $tanggalSelesai = \Carbon\Carbon::parse($validated['tgl_selesai']);
+        $durasiIzin = $tanggalMulai->diffInDays($tanggalSelesai) + 1;
+
+        // Validasi durasi izin
+        if ($durasiIzin > 5) {
+            return back()->withErrors(['tgl_selesai' => 'Durasi izin tidak boleh lebih dari 5 hari !'])->withInput();
+        }
 
         // Simpan data cuti ke database
         Izin::create([
@@ -67,37 +75,6 @@ class IzinController extends Controller
         ]);
         Alert::success('Succes', 'Izin Berhasil Di Ajukan')->autoClose(1500);
         return redirect()->route('izin.index');
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function approve($id)
