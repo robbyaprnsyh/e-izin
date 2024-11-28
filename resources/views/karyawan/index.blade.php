@@ -68,7 +68,7 @@
                         </p>
                     </div>
                 </label>
-                <label class="block text-sm mt-2">
+                <label class="block text-sm mt-2 mb-2">
                     <div class="flex items-center w-full">
                         <span class="text-gray-700 dark:text-gray-400 w-1/4 mr-6"><b>Agama :</b></span>
                         <p class="w-3/4 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">

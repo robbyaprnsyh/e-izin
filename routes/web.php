@@ -14,17 +14,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route Karyawan
 Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-Route::get('karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
-Route::post('karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
-Route::get('karyawan/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
-Route::get('karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-Route::put('karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
-Route::delete('karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route Karyawan
+    Route::get('karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+    Route::post('karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+    Route::get('karyawan/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
+    Route::get('karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+    Route::put('karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+    Route::delete('karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 
     // Route Jabatan
     Route::get('jabatan', [JabatanController::class, 'index'])->name('jabatan.index');

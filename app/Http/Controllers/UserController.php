@@ -32,7 +32,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|unique:users,email',
             'password' => 'required|string|min:8',
-            'nik' => 'required|string|max:15|unique:karyawans',
+            'nik' => 'required|string|min:16|max:16|unique:karyawans',
             'no_telp' => 'required|string|max:12',
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string|max:15',
@@ -123,9 +123,9 @@ class UserController extends Controller
         // }
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'required|string|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8',
-            'nik' => 'required|string|max:15|unique:karyawans',
+            'nik' => 'required|string|min:16|max:16|unique:karyawans,nik,' . $id,
             'no_telp' => 'required|string|max:12',
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string|max:15',
@@ -138,7 +138,7 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
         ]);
 
         $karyawan = $user->karyawan; // Ambil relasi karyawan
